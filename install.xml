@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>FancyBox For DLE</name>
+	<description>Made By Ticcix</description>
+	<icon>engine/skins/images/fancybox-ticcix.png</icon>
+	<version>1.0.1</version>
+	<dleversion>13</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl>https://ticcix.github.io/fancyboxfordle/</upgradeurl>
+	<filedelete>1</filedelete>
+	<needplugin></needplugin>
+	<mnotice>1</mnotice>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<notice><![CDATA[<p>вставлять - Insert - დაამატეთ<span style="color: #e03e2d;"><b>main.tpl-ში </b></span></p>
+<p><span style="color: #e03e2d;"><b><span style="color: #000000;">&lt;/head&gt;</span></b></span></p>
+<pre class="language-markup"><code>&lt;link rel="stylesheet" type="text/css" href="{THEME}/css/jquery.fancybox.min.css"&gt;</code></pre>
+<p><span style="color: #e03e2d;"><b><span style="color: #000000;">&lt;/body&gt;</span></b></span></p>
+<pre class="language-javascript"><code>&lt;script src="{THEME}/js/jquery.fancybox.min.js"&gt;&lt;/script&gt;
+	   &lt;script&gt;
+        $('[data-fancybox]').fancybox({
+    loop: true,
+            buttons: [ 
+   "zoom",
+   "share",
+   "slideShow",
+   "fullScreen",
+   "download",
+   "thumbs",
+   "close"
+],
+    autoFocus: false
+});
+    &lt;/script&gt;</code></pre>]]></notice>
+	<file name="engine/modules/show.full.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<li><a href=\"$img_url\" onclick=\"return hs.expand(this, { slideshowGroup: 'xf_{$row['id']}_{$value[0]}' })\" target=\"_blank\"><img src=\"{$thumb_url}\" alt=\"{$temp_alt}\"></a></li>]]></searchcode>
+			<replacecode><![CDATA[<li><a href=\"$img_url\" data-fancybox=\"gallary\" data-caption=\"{$temp_alt}\" target=\"_blank\"><img src=\"{$thumb_url}\" alt=\"{$temp_alt}\"></a></li>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<a href=\"$img_url\" class=\"highslide\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></searchcode>
+			<replacecode><![CDATA[<a href=\"$img_url\" data-fancybox data-caption=\"{$temp_alt}\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.short.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<li><a href=\"$img_url\" onclick=\"return hs.expand(this, { slideshowGroup: 'xf_{$row['id']}_{$value[0]}' })\" target=\"_blank\"><img src=\"{$thumb_url}\" alt=\"{$temp_alt}\"></a></li>]]></searchcode>
+			<replacecode><![CDATA[<li><a href=\"$img_url\" data-fancybox=\"gallary\" data-caption=\"{$temp_alt}\" target=\"_blank\"><img src=\"{$thumb_url}\" alt=\"{$temp_alt}\"></a></li>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<a href=\"$img_url\" class=\"highslide\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></searchcode>
+			<replacecode><![CDATA[<a href=\"$img_url\" data-fancybox data-caption=\"{$temp_alt}\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.custom.php">
+		<operation action="replace">
+			<searchcode><![CDATA[<li><a href=\"$img_url\" onclick=\"return hs.expand(this, { slideshowGroup: 'xf_{$row['id']}_{$value[0]}' })\" target=\"_blank\"><img src=\"{$thumb_url}\" alt=\"{$temp_alt}\"></a></li>]]></searchcode>
+			<replacecode><![CDATA[<li><a href=\"$img_url\" data-fancybox=\"gallary\" data-caption=\"{$temp_alt}\" target=\"_blank\"><img src=\"{$thumb_url}\" alt=\"{$temp_alt}\"></a></li>]]></replacecode>
+		</operation>
+		<operation action="replace">
+			<searchcode><![CDATA[<a href=\"$img_url\" class=\"highslide\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></searchcode>
+			<replacecode><![CDATA[<a href=\"$img_url\" data-fancybox data-caption=\"{$temp_alt}\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></replacecode>
+		</operation>
+	</file>
+</dleplugin>
