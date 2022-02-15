@@ -49,6 +49,11 @@
 			<searchcode><![CDATA[<a href=\"$img_url\" class=\"highslide\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></searchcode>
 			<replacecode><![CDATA[<a href=\"$img_url\" data-fancybox data-caption=\"{$temp_alt}\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></replacecode>
 		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[$tpl->set( '{short-story}', $row['short_story'] );]]></searchcode>
+			<replacecode><![CDATA[$row['short_story'] = preg_replace_callback ( "#<(a)(.+?)>#i", "enable_fancybox", $row['short_story'] );
+$row['full_story'] = preg_replace_callback ( "#<(a)(.+?)>#i", "enable_fancybox", $row['full_story'] );]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/modules/show.short.php">
 		<operation action="replace">
@@ -59,6 +64,14 @@
 			<searchcode><![CDATA[<a href=\"$img_url\" class=\"highslide\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></searchcode>
 			<replacecode><![CDATA[<a href=\"$img_url\" data-fancybox data-caption=\"{$temp_alt}\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></replacecode>
 		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[if ($config['image_lazy']) $row['short_story'] = preg_replace_callback ( "#<(img|iframe)(.+?)>#i", "enable_lazyload", $row['short_story'] );]]></searchcode>
+			<replacecode><![CDATA[$row['short_story'] = preg_replace_callback ( "#<(a)(.+?)>#i", "enable_fancybox", $row['short_story'] );]]></replacecode>
+		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[$tpl->set( '{full-story}',  $row['full_story'] );]]></searchcode>
+			<replacecode><![CDATA[$row['full_story'] = preg_replace_callback ( "#<(a)(.+?)>#i", "enable_fancybox", $row['full_story'] );]]></replacecode>
+		</operation>
 	</file>
 	<file name="engine/modules/show.custom.php">
 		<operation action="replace">
@@ -68,6 +81,21 @@
 		<operation action="replace">
 			<searchcode><![CDATA[<a href=\"$img_url\" class=\"highslide\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></searchcode>
 			<replacecode><![CDATA[<a href=\"$img_url\" data-fancybox data-caption=\"{$temp_alt}\" target=\"_blank\"><img class=\"xfieldimage {$value[0]}\" src=\"$thumb_url\" alt=\"{$temp_alt}\"></a>]]></replacecode>
+		</operation>
+		<operation action="before">
+			<searchcode><![CDATA[if ($config['image_lazy']) $row['short_story'] = preg_replace_callback ( "#<(img|iframe)(.+?)>#i", "enable_lazyload", $row['short_story'] );]]></searchcode>
+			<replacecode><![CDATA[$row['short_story'] = preg_replace_callback ( "#<(a)(.+?)>#i", "enable_fancybox", $row['short_story'] );]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/functions.php">
+		<operation action="before">
+			<searchcode><![CDATA[function deletecomments( $id ) {]]></searchcode>
+			<replacecode><![CDATA[function enable_fancybox( $matches=array() ) {
+
+    $matches[0] = str_replace ( 'class="highslide"', 'data-fancybox="gallary"', $matches[0] );
+
+    return $matches[0];
+}]]></replacecode>
 		</operation>
 	</file>
 </dleplugin>
